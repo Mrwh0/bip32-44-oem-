@@ -130,6 +130,21 @@ int main() {
                            sizeof(str));
   printf("Account Extended Public Key : %s\n", str);
 
+  // [Chain m/44'/0'/0'/0]
+  fingerprint = hdnode_fingerprint(&root);
+  hdnode_private_ckd_prime(&root, 0);
+
+  hdnode_serialize_private(&root, fingerprint, VERSION_PRIVATE, str,
+                           sizeof(str));
+  printf("BIP32 Extended Private Key  : %s\n", str);
+
+  hdnode_serialize_public(&root, fingerprint, VERSION_PUBLIC, str,
+                           sizeof(str));
+  printf("BIP32 Extended Public Key   : %s\n", str);
+
+
+
+
 
   //printf("%s", node.child_num);
   //printf("%" PRIu32 "\n",node.child_num);
