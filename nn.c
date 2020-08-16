@@ -95,9 +95,9 @@ int main() {
   fingerprint = 0;
   hdnode_serialize_private(&root, fingerprint, VERSION_PRIVATE, str,
                            sizeof(str));
-  printf("compare with https ://iancoleman.io/bip39/\n");
-  printf("bip32 seed         : 000102030405060708090a0b0c0d0e0f\n");
-	  printf("bip32 root priv key: %s\n", str);
+  printf("compare with https ://iancoleman.io/bip39/ BIP44\n");
+  printf("BIP39 Seed         : 000102030405060708090a0b0c0d0e0f\n");
+  printf("BIP32 Root Key     : %s\n", str);
 
   // [Chain m/44']
   fingerprint = hdnode_fingerprint(&root);
@@ -105,7 +105,7 @@ int main() {
 
   hdnode_serialize_private(&root, fingerprint, VERSION_PRIVATE, str,
                            sizeof(str));
-  printf("bip32 m/44' priv key: %s\n", str);
+  //printf("bip32 m/44' priv key: %s\n", str);
 
 
   // [Chain m/44'/0']
@@ -114,7 +114,7 @@ int main() {
 
   hdnode_serialize_private(&root, fingerprint, VERSION_PRIVATE, str,
                            sizeof(str));
-  printf("bip32 m/44'/0' priv key: %s\n", str);
+  //printf("bip32 m/44'/0' priv key: %s\n", str);
 
 
 
@@ -124,8 +124,11 @@ int main() {
 
   hdnode_serialize_private(&root, fingerprint, VERSION_PRIVATE, str,
                            sizeof(str));
-  printf("bip32 m/44'/0'/0' priv key: %s\n", str);
+  printf("Account Extended Private Key: %s\n", str);
 
+  hdnode_serialize_public(&root, fingerprint, VERSION_PUBLIC, str,
+                           sizeof(str));
+  printf("Account Extended Public Key : %s\n", str);
 
 
   //printf("%s", node.child_num);
