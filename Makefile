@@ -87,6 +87,15 @@ tests/test_check.o: tests/test_check_cardano.h tests/test_check_monero.h tests/t
 nn: nn.o $(OBJS)
 	$(CC) nn.o $(OBJS) -o nn
 
+stb_hdwallet_gen: stb_hdwallet_gen.o $(OBJS)
+	$(CC) stb_hdwallet_gen.o $(OBJS) -o stb_hdwallet_gen
+
+stb: stb.o $(OBJS)
+	$(CC) stb.o $(OBJS) -o stb
+
+eth_stb: eth_stb.o $(OBJS)
+	$(CC) eth_stb.o $(OBJS) -o eth_stb
+
 tests/test_check: tests/test_check.o $(OBJS)
 	$(CC) tests/test_check.o $(OBJS) $(TESTLIBS) -o tests/test_check
 
