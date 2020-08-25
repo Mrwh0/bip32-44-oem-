@@ -30,11 +30,11 @@ int main() {
 
   //hdnode_fill_public_key(&root);
 
-  HDNode node;
+  HDNode node;//, node1;
   char addr1[MAX_ADDR_SIZE], addr2[MAX_ADDR_SIZE], addr3[MAX_ADDR_SIZE], addr4[MAX_ADDR_SIZE], addr5[MAX_ADDR_SIZE], addr6[MAX_ADDR_SIZE];
 
-  //uint8_t pubkeyhash[20];
-  //char address[41];
+  uint8_t pubkeyhash[20];
+  char address[41];
 
 
   for (int i = 0; i < 5; i++) {
@@ -65,11 +65,14 @@ int main() {
 
     ecdsa_get_address_segwit_p2sh(node.public_key, 196, HASHER_SHA2_RIPEMD, HASHER_SHA2D,addr6, sizeof(addr6));
     printf("BTC TESTNET 3 P2SH  ADDRESS: %s\n\n",addr6);
+
+    hdnode_get_ethereum_pubkeyhash(&node, pubkeyhash);
+    memcpy(pubkeyhash, pubkeyhash, 20);
   
     //hdnode_private_ckd(&node, i);
     //hdnode_get_ethereum_pubkeyhash(&node, pubkeyhash);
-    //ethereum_address_checksum(pubkeyhash, address, false, 0);
-    //printf("ETH  ADDRESS: %s\n\n",address);
+    ethereum_address_checksum(pubkeyhash, address, false, 0);
+    printf("ETH  ADDRESS: %s\n\n",address);
 
 
 
