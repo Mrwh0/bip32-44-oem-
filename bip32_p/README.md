@@ -1,10 +1,11 @@
 simple tool to derive address from STB by a given bip32 xpub
 
+```
 python3.6 HDnode.py 
 
 BIP39 WALLET
-BIP39 words               : copy hockey genuine fossil giraffe banana guitar wagon detect word wasp suspect
-BIP39 seed                : f0654a9871eaed2ca9fedbd2dc53d2207ce86a4f4d270aa38043cc408b117dba26ee76717027b81634ece9be56d2ba7d5fb18432f12db001238dc6a63b3672ed
+BIP39 words: copy hockey genuine fossil giraffe banana guitar wagon detect word wasp suspect
+BIP39 seed : f0654a9871eaed2ca9fedbd2dc53d2207ce86a4f4d270aa38043cc408b117dba26ee76717027b81634ece9be56d2ba7d5fb18432f12db001238dc6a63b3672ed
 
 
 BIP32 HD MASTER INTERNAL NODE m/0'/0'/0'/0
@@ -40,5 +41,6 @@ BTC TEST P2SH : 2Mu7Wk7QADRcxrY2Gjv5vn9hVLK1M6j1iCQ
 LTC P2PKH     : LaP8QADXZ4RC19hoGXEnkDEetAxMUR2ywu
 LTC P2SH      : M9mSzFt6Z5y3TFfdAfTPyqxdSfPdNvcqUR
 ETH HEX       : 0xb03C27A99EdD880617a7e1b098F9f492708F7B54
+```
 
 

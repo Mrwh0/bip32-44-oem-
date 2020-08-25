@@ -1,4 +1,4 @@
-from coincurve   import PrivateKey #as ECPrivateKey
+#from coincurve   import PrivateKey
 from binascii    import hexlify, unhexlify
 from collections import deque
 from hashlib     import new, sha256 as _sha256
@@ -65,19 +65,15 @@ else:
 #hash funtion
 def sha256(bytestr):
     r = _sha256(bytestr).digest()
-#    print("sha256                   ",r.hex())
     return r
 def double_sha256(bytestr):
     r = _sha256(_sha256(bytestr).digest()).digest()
-#    print("double_sha256            ",r.hex())
     return r
 def double_sha256_checksum(bytestr):
     r = double_sha256(bytestr)[:4]
-#    print("double_sha256_checksum   ",r.hex())
     return r
 def ripemd160_sha256(bytestr):
     r = new('ripemd160', sha256(bytestr)).digest()
-#    print("ripemd160_sha256         ",r.hex(),sys.getsizeof(r))
     return r
 
 def decompress_pubkey(pk):
@@ -89,8 +85,6 @@ def decompress_pubkey(pk):
     y = y.to_bytes(32, byteorder='big')
     return b'\x04' + pk[1:33] + y
 
-#print(unhexlify('0003a57b5886a19694cee77cf1133acfd2312e4caa79a6f930ce8193f0591a654a59'))
-#print(hexlify(decompress_pubkey(unhexlify('02f15446771c5c585dd25d8d62df5195b77799aa8eac2f2196c54b73ca05f72f27'))).decode())
 #base58encode
 def b58encode(bytestr):
     alphabet = BASE58_ALPHABET_LIST
@@ -109,6 +103,7 @@ def b58encode(bytestr):
         else:
             break
     return '1' * pad + encoded
+
 def b58encode_check(bytestr):
     return b58encode(bytestr + double_sha256_checksum(bytestr))
 
@@ -142,19 +137,15 @@ def b58decode_check(string):
                          'checksum {}.'.format(decoded_checksum, string, hash_checksum))
     return shortened
 
-#a = b58decode_check('1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH')
-#print("DECODE hash160",a[1:].hex())
 
 #address
 def public_key_to_address(version,public_key):
-    #version = PUBKEY_HASH
     length = len(public_key)
     if length not in (33, 65):
         raise ValueError('{} is an invalid length for a public key.'.format(length))
     return b58encode_check(version + ripemd160_sha256(public_key))
 
 def public_key_to_segwit_address(version,public_key):
-    #version = SCRIPT_HASH
     length = len(public_key)
     if length != 33:
         raise ValueError('{} is an invalid length for a public key. Segwit only uses compressed public keys'.format(length))
@@ -186,74 +177,4 @@ def bytes_to_wif(private_key, compressed=False):
     return b58encode_check(private_key)
 
 
-#start_time = time.time()
-#print("{0:.8f}".format((time.time()-start_time)))
 
-#pub_ = ['03f5068dc5651e6a79b87d8ba0be63d1c96759c707b69ebbe1ac26d8fb69da4c93']
-#for x in pub_:
-    #x = int(x,16).hex()
-    #print(type(x))
-    #x = bytes.fromhex(x)
-#    x = hex_to_bytes(x)
-    #print("from int                 ",x)
-    #_pk = PrivateKey.from_int(1)
-    #pub_key_compressed = _pk.public_key.format(compressed=True)
-    #print("pub_key_compressed       ",pub_key_compressed)
-    #pub_key_uncompressed = _pk.public_key.format(compressed=False)
-    #print("pub_key_uncompressed     ",pub_key_uncompressed.hex())
-
-#    compressed_address = public_key_to_address(x)
-#    print("compressed_address       ",compressed_address, sys.getsizeof(compressed_address))
-#    segwit_address = public_key_to_segwit_address(x)
-#    print("segwit_address           ",segwit_address, sys.getsizeof(segwit_address) )
-
-    #uncompressed_address = public_key_to_address(x)
-    #print("uncompressed_address     ",uncompressed_address,sys.getsizeof(uncompressed_address))
-
-    #_wif = bytes_to_wif(_pk.secret, compressed=False)
-    #print("priv_key_wif_uncompressed",_wif)
-
-    #_wif = bytes_to_wif(_pk.secret, compressed=True)
-    #print("priv_key_wif_compressed  ",_wif)
-
-    #print("secret hex               ",_pk.secret.hex())
-    #print("                                           ")
-    #print("                                           ")
-
-#a = '0000000000000000000000000000000000000000000000000000000000000001'
-#a = int(a, 16)
-#b = '0x5e'
-#b = int(b, 16)
-#print(a)
-#print(b)
-#print(a+b)
-
-#https://bitcoin.stackexchange.com/questions/86234/how-to-uncompress-a-public-key
-#print(int_to_bytes(111))
-#hex(111).encode())
-#print(bytes.fromhex('0x'+hex(111)))
-#print(hex_to_bytes(hex(111).hex()))
-#print(hex(196))
-#print(int.from_bytes(bytestr, 'big'))
-#print(type(PRIVATE_KEY))
-#a = (111).to_bytes((((111).bit_length() + 7) // 8),"big").hex()
-#print(hex_to_bytes(a))
-#hex = '0x{:02x}'.format(1111111)
-#print(hex(111))
-#print(bytearray(hex.encode()))
-#print(hex.to_bytes())
-#print(struct.pack('B', 111))
-#hex= hexlify(int_to_bytes(1111))
-
-#print(struct.pack('B', hex))
-#hex = '0x{:02x}'.format(hex)
-#print(bytes.fromhex(hex(111)))
-
-#a = struct.pack("B",111)
-#print(chr(111))
-#print(bytes.fromhex(chr(111)))
-#print(codecs.encode(struct.pack("B",122),"hex"))
-#print(struct.pack('>I', 111))
-#hex = unhexlify('6f')
-#print(hexlify(111))
-#print(hex(50))
